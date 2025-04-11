@@ -1,6 +1,7 @@
 ﻿using LojaProdutos.Data;
 using LojaProdutos.Models;
 using LojaProdutosV2.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace LojaProdutosV2.Services.Usuario
 {
@@ -12,34 +13,41 @@ namespace LojaProdutosV2.Services.Usuario
             _context = context;
         }
 
-        public Task<ResponseModel<UsrUsuario>> Atualizar(UsrUsuario produto)
+        public Task<ResponseModel<UsrUsuario>> Atualizar(UsrUsuario usuario)
         {
             throw new NotImplementedException();
         }
 
-        public Task<ResponseModel<UsrUsuario>> BuscarPorId(int id)
+        public Task<ResponseModel<UsrUsuario>> BuscarPorId(long Id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<ResponseModel<UsrUsuario>> Criar(UsrUsuario produto)
+        public Task<ResponseModel<UsrUsuario>> Criar(UsrUsuario usuario)
         {
             throw new NotImplementedException();
         }
 
-        public Task<ResponseModel<bool>> Deletar(int id)
+        public Task<ResponseModel<bool>> Deletar(long id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<ResponseModel<List<UsrUsuario>>> PegarTodos()
+        public async Task<ResponseModel<List<UsrUsuario>>> PegarTodos()
         {
+            ResponseModel<List<UsrUsuario>> resposta = new ResponseModel<List<UsrUsuario>>();
             try
             {
+                var usuarios = await _context.Usuarios.ToListAsync();
 
+                resposta.Dados = usuarios;
+
+                return resposta;
             }
             catch (Exception ex) { 
-            
+                resposta.Mensagem = ex.Message;
+                resposta.Status = false;
+                return resposta;
             }
         }
     }

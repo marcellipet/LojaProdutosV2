@@ -10,7 +10,7 @@ namespace LojaProdutosV2.Services.Produto
             throw new NotImplementedException();
         }
 
-        public Task<ResponseModel<PrdProduto>> BuscarPorId(int id)
+        public Task<ResponseModel<PrdProduto>> BuscarPorId(long Id)
         {
             throw new NotImplementedException();
         }
@@ -20,7 +20,7 @@ namespace LojaProdutosV2.Services.Produto
             throw new NotImplementedException();
         }
 
-        public Task<ResponseModel<bool>> Deletar(int id)
+        public Task<ResponseModel<bool>> Deletar(long Id)
         {
             throw new NotImplementedException();
         }
