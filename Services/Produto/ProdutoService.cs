@@ -17,17 +17,65 @@ namespace LojaProdutosV2.Services.Produto
             throw new NotImplementedException();
         }
 
-        public Task<ResponseModel<PrdProduto>> BuscarPorId(long Id)
+        public async Task<ResponseModel<PrdProduto>> BuscarPorId(long Id)
         {
-            throw new NotImplementedException();
+            ResponseModel<PrdProduto> resposta = new ResponseModel<PrdProduto>();
+            try
+            {
+                var produtos = _context.Produtos.FirstOrDefaultAsync(prdProduto => prdProduto.Id == Id);
+
+                if (produtos == null)
+                {
+                    resposta.Mensagem = "Produto não encontrado.";
+                    resposta.Status = false;
+                    return resposta;
+                }
+                resposta.Dados = await produtos;
+                resposta.Mensagem = "Produto encontrado com sucesso.";
+                resposta.Status = true;
+                return resposta;
+            }
+            catch (Exception ex)
+            {
+                resposta.Mensagem = ex.Message;
+                resposta.Status = false;
+                return resposta;
+
+            }
         }
 
-        public Task<ResponseModel<PrdProduto>> Criar(PrdProduto produto)
+        public async Task<ResponseModel<PrdProduto>> Criar(PrdProduto produto)
         {
-            throw new NotImplementedException();
+            ResponseModel<PrdProduto> resposta = new ResponseModel<PrdProduto>();
+
+            try
+            {
+                var produtos = new PrdProduto
+                {
+                    Nome = produto.Nome,
+                    Descricao = produto.Descricao,
+                    Preco = produto.Preco,
+                    Foto = produto.Foto
+                };
+
+                _context.Add(produtos);
+                await _context.SaveChangesAsync();
+
+                resposta.Dados = produtos;
+                resposta.Mensagem = "Produto criado com sucesso.";
+                resposta.Status = true;
+                return resposta;
+
+            }
+            catch (Exception ex)
+            {
+                resposta.Mensagem = ex.Message;
+                resposta.Status = false;
+                return resposta;
+            }
         }
 
-        public Task<ResponseModel<bool>> Deletar(long Id)
+        public async Task<ResponseModel<bool>> Deletar(long Id)
         {
             throw new NotImplementedException();
         }
@@ -38,6 +86,7 @@ namespace LojaProdutosV2.Services.Produto
             try
             {
                 var produtos = await _context.Produtos.ToListAsync();
+
                 resposta.Dados = produtos;
                 resposta.Mensagem = "Lista de produtos obtida com sucesso.";
                 resposta.Status = true;
