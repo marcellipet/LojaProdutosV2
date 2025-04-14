@@ -1,4 +1,5 @@
 ﻿using LojaProdutos.Models;
+using LojaProdutosV2.Dto;
 using LojaProdutosV2.Models;
 
 namespace LojaProdutosV2.Services.Produto
@@ -8,7 +9,7 @@ namespace LojaProdutosV2.Services.Produto
         Task<ResponseModel<List<PrdProduto>>> ListarTodos();
         Task<ResponseModel<PrdProduto>> BuscarPorId(long Id);
         Task<ResponseModel<PrdProduto>> Criar(PrdProduto produto);
-        Task<ResponseModel<PrdProduto>> Atualizar(PrdProduto produto);
+        Task<ResponseModel<PrdProduto>> Atualizar(ProdutoAtualizarDto produtoAtualizar);
         Task<ResponseModel<bool>> Deletar(long Id);
     }
 }

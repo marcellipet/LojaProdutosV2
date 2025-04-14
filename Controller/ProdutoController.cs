@@ -1,4 +1,5 @@
 ﻿using LojaProdutos.Models;
+using LojaProdutosV2.Dto;
 using LojaProdutosV2.Models;
 using LojaProdutosV2.Services.Produto;
 using Microsoft.AspNetCore.Http;
@@ -35,6 +36,25 @@ namespace LojaProdutosV2.NovaPasta
         public async Task<ActionResult<ResponseModel<PrdProduto>>> Criar(PrdProduto produto)
         {
             var resposta = await _produtoInterface.Criar(produto);
+            return Ok(resposta);
+        }
+
+        [HttpPut("Atualizar")]
+        public async Task<ActionResult<ResponseModel<PrdProduto>>> Atualizar(long Id,ProdutoAtualizarDto produtoAtualizar)
+        {
+            if(produtoAtualizar == null)  
+            {
+                return BadRequest("Produto não pode ser nulo.");
+            }
+
+            var resposta = await _produtoInterface.Atualizar(produtoAtualizar);
+            return Ok(resposta);
+        }
+
+        [HttpDelete("Deletar/{Id}")]
+        public async Task<ActionResult<ResponseModel<bool>>> Deletar(long Id)
+        {
+            var resposta = await _produtoInterface.Deletar(Id);
             return Ok(resposta);
         }
     }
