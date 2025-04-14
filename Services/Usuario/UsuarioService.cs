@@ -1,5 +1,6 @@
 ﻿using LojaProdutos.Data;
 using LojaProdutos.Models;
+using LojaProdutosV2.Dto;
 using LojaProdutosV2.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,26 +14,106 @@ namespace LojaProdutosV2.Services.Usuario
             _context = context;
         }
 
-        public Task<ResponseModel<UsrUsuario>> Atualizar(UsrUsuario usuario)
+        public async Task<ResponseModel<UsrUsuario>> Atualizar(UsuarioAtualizarDto usuarioAtualizar)
         {
-            throw new NotImplementedException();
-        }
+            ResponseModel<UsrUsuario> resposta = new ResponseModel<UsrUsuario>();
 
-        public Task<ResponseModel<UsrUsuario>> BuscarPorId(long Id)
+            try
+            {
+                var usuarios = await _context.Produtos.FindAsync(usuarioAtualizar);
+                if (usuarios == null)
+                {
+                    resposta.Mensagem = "Produto não encontrado.";
+                    resposta.Status = false;
+                    return resposta;
+                }
+                usuarios.Nome = usuarioAtualizar.Nome;
+                usuarios.Descricao = usuarioAtualizar.Email;
+                _context.Update(usuarios);
+                await _context.SaveChangesAsync();
+
+                resposta.Dados = usuarios;
+                resposta.Mensagem = "Produto atualizado com sucesso.";
+                resposta.Status = true;
+                return resposta;
+            }
+            catch (Exception ex)
+            {
+                resposta.Mensagem = ex.Message;
+                resposta.Status = false;
+                return resposta;
+            }
+        }
+        public async Task<ResponseModel<UsrUsuario>> BuscarPorId(long Id)
         {
-            throw new NotImplementedException();
+            ResponseModel<UsrUsuario> resposta = new ResponseModel<UsrUsuario>();
+            try
+            {
+                var usuario = await _context.Usuarios.FirstOrDefaultAsync(usrUsuario => usrUsuario.Id == Id);
+                if (usuario == null)
+                {
+                    resposta.Mensagem = "Usuário não encontrado.";
+                    resposta.Status = false;
+                    return resposta;
+                }
+                resposta.Dados = usuario;
+                resposta.Mensagem = "Usuário encontrado com sucesso.";
+                resposta.Status = true;
+                return resposta;
+            }
+            catch (Exception ex)
+            {
+                resposta.Mensagem = ex.Message;
+                resposta.Status = false;
+                return resposta;
+            }
         }
-
-        public Task<ResponseModel<UsrUsuario>> Criar(UsrUsuario usuario)
+        public async Task<ResponseModel<UsrUsuario>> Criar(UsrUsuario usuario)
         {
-            throw new NotImplementedException();
-        }
+            ResponseModel<UsrUsuario> resposta = new ResponseModel<UsrUsuario>();
 
-        public Task<ResponseModel<bool>> Deletar(long Id)
+            try
+            {
+                await _context.Usuarios.AddAsync(usuario);
+                await _context.SaveChangesAsync();
+                resposta.Dados = usuario;
+                resposta.Mensagem = "Usuário criado com sucesso.";
+                resposta.Status = true;
+                return resposta;
+            }
+            catch (Exception ex)
+            {
+                resposta.Mensagem = ex.Message;
+                resposta.Status = false;
+                return resposta;
+            }
+        }
+        public async Task<ResponseModel<bool>> Deletar(long Id)
         {
-            throw new NotImplementedException();
+            ResponseModel<bool> resposta = new ResponseModel<bool>();
+            try
+            {
+                var usuarios = await _context.Produtos.FindAsync(Id);
+                if (usuarios == null)
+                {
+                    resposta.Mensagem = "Produto não encontrado.";
+                    resposta.Status = false;
+                    return resposta;
+                }
+                _context.Produtos.Remove(usuarios);
+                await _context.SaveChangesAsync();
+                resposta.Dados = true;
+                resposta.Mensagem = "Produto deletado com sucesso.";
+                resposta.Status = true;
+                return resposta;
+            }
+            catch (Exception ex)
+            {
+                resposta.Mensagem = ex.Message;
+                resposta.Status = false;
+                return resposta;
+            }
         }
-
         public async Task<ResponseModel<List<UsrUsuario>>> ListarUsuarios()
         {
             ResponseModel<List<UsrUsuario>> resposta = new ResponseModel<List<UsrUsuario>>();

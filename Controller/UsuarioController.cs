@@ -1,4 +1,5 @@
 ﻿using LojaProdutos.Models;
+using LojaProdutosV2.Dto;
 using LojaProdutosV2.Models;
 using LojaProdutosV2.Services.Usuario;
 using Microsoft.AspNetCore.Http;
@@ -22,5 +23,38 @@ namespace LojaProdutosV2.Controller
             var usuarios = await _usuarioInterface.ListarUsuarios();
             return Ok(usuarios);
         }
+
+        [HttpGet("BuscarPorId/{Id}")]
+        public async Task<ActionResult<ResponseModel<UsrUsuario>>> BuscarPorId(long Id)
+        {
+            var usuario = await _usuarioInterface.BuscarPorId(Id);
+            return Ok(usuario);
+        }
+
+        [HttpPost("Criar")]
+        public async Task<ActionResult<ResponseModel<UsrUsuario>>> Criar(UsrUsuario usuario)
+        {
+            var resposta = await _usuarioInterface.Criar(usuario);
+            return Ok(resposta);
+        }
+
+        [HttpPut("Atualizar")]
+        public async Task<ActionResult<ResponseModel<UsrUsuario>>> Atualizar(UsuarioAtualizarDto usuarioAtualizar)
+        {
+            if (usuarioAtualizar == null)
+            {
+                return BadRequest("Usuário não pode ser nulo.");
+            }
+            var resposta = await _usuarioInterface.Atualizar(usuarioAtualizar);
+            return Ok(resposta);
+        }
+
+        [HttpDelete("Deletar/{Id}")]
+        public ActionResult<ResponseModel<bool>> Deletar(long Id)
+        {
+            var resposta = _usuarioInterface.Deletar(Id);
+            return Ok(resposta);
+        }
+
     }
 }

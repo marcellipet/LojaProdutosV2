@@ -40,7 +40,7 @@ namespace LojaProdutosV2.NovaPasta
         }
 
         [HttpPut("Atualizar")]
-        public async Task<ActionResult<ResponseModel<PrdProduto>>> Atualizar(long Id,ProdutoAtualizarDto produtoAtualizar)
+        public async Task<ActionResult<ResponseModel<PrdProduto>>> Atualizar( ProdutoAtualizarDto produtoAtualizar)
         {
             if(produtoAtualizar == null)  
             {
