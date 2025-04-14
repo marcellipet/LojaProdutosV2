@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Identity;
 
 namespace LojaProdutos.Models
 {
-    [Table("Usr_Usuarios")]
-    public class UsrUsuario : IdentityUser
+    [Table("Usr_Usuario")]
+    public class UsrUsuario 
     {
         [Key]
         public long Id { get; protected set; }

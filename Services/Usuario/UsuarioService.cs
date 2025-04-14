@@ -28,12 +28,12 @@ namespace LojaProdutosV2.Services.Usuario
             throw new NotImplementedException();
         }
 
-        public Task<ResponseModel<bool>> Deletar(long id)
+        public Task<ResponseModel<bool>> Deletar(long Id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<ResponseModel<List<UsrUsuario>>> PegarTodos()
+        public async Task<ResponseModel<List<UsrUsuario>>> ListarUsuarios()
         {
             ResponseModel<List<UsrUsuario>> resposta = new ResponseModel<List<UsrUsuario>>();
             try
@@ -41,10 +41,12 @@ namespace LojaProdutosV2.Services.Usuario
                 var usuarios = await _context.Usuarios.ToListAsync();
 
                 resposta.Dados = usuarios;
+                resposta.Mensagem = "Lista de usuários obtida com sucesso.";
 
                 return resposta;
             }
-            catch (Exception ex) { 
+            catch (Exception ex)
+            {
                 resposta.Mensagem = ex.Message;
                 resposta.Status = false;
                 return resposta;

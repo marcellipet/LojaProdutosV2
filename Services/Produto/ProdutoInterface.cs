@@ -5,7 +5,7 @@ namespace LojaProdutosV2.Services.Produto
 {
     public interface IProdutoInterface 
     {
-        Task<ResponseModel<List<PrdProduto>>> PegarTodos();
+        Task<ResponseModel<List<PrdProduto>>> ListarTodos();
         Task<ResponseModel<PrdProduto>> BuscarPorId(long Id);
         Task<ResponseModel<PrdProduto>> Criar(PrdProduto produto);
         Task<ResponseModel<PrdProduto>> Atualizar(PrdProduto produto);
