@@ -2,6 +2,7 @@
 using LojaProdutos.Models;
 using LojaProdutosV2.Dto;
 using LojaProdutosV2.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace LojaProdutosV2.Services.Endereco
 {
@@ -37,9 +38,29 @@ namespace LojaProdutosV2.Services.Endereco
             throw new NotImplementedException();
         }
 
-        public Task<ResponseModel<List<EndEndereco>>> ListarTodos()
+        public async Task<ResponseModel<List<EndEndereco>>> ListarTodos()
         {
-            throw new NotImplementedException();
+            ResponseModel<List<EndEndereco>> resposta = new ResponseModel<List<EndEndereco>>();
+            try
+            {
+                var enderecos = await _context.Enderecos.ToListAsync();
+                if (enderecos == null || !enderecos.Any())
+                {
+                    resposta.Mensagem = "Nenhum endereço encontrado.";
+                    resposta.Status = false;
+                    return resposta;
+                }
+                resposta.Dados = enderecos;
+                resposta.Mensagem = "Endereços encontrados com sucesso.";
+                resposta.Status = true;
+                return resposta;
+            }
+            catch (Exception ex)
+            {
+                resposta.Mensagem = ex.Message;
+                resposta.Status = false;
+                return resposta;
+            }
         }
     }
 }
