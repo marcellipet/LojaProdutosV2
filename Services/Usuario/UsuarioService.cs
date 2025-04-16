@@ -14,26 +14,27 @@ namespace LojaProdutosV2.Services.Usuario
             _context = context;
         }
 
-        public async Task<ResponseModel<UsrUsuario>> Atualizar(UsuarioAtualizarDto usuarioAtualizar)
+        public async Task<ResponseModel<List<UsrUsuario>>> Atualizar(UsuarioAtualizarDto usuarioAtualizar)
         {
-            ResponseModel<UsrUsuario> resposta = new ResponseModel<UsrUsuario>();
+            ResponseModel<List<UsrUsuario>> resposta = new ResponseModel<List<UsrUsuario>>();
 
             try
             {
-                var usuarios = await _context.Produtos.FindAsync(usuarioAtualizar);
+                var usuarios = await _context.Usuarios.FirstOrDefaultAsync(usrUsuario => usrUsuario.Id == usuarioAtualizar.Id);
                 if (usuarios == null)
                 {
-                    resposta.Mensagem = "Produto não encontrado.";
+                    resposta.Mensagem = "Usuário não encontrado.";
                     resposta.Status = false;
                     return resposta;
                 }
                 usuarios.Nome = usuarioAtualizar.Nome;
-                usuarios.Descricao = usuarioAtualizar.Email;
-                _context.Update(usuarios);
+                usuarios.Email = usuarioAtualizar.Email;
+                
+                _context.Usuarios.Update(usuarios);
                 await _context.SaveChangesAsync();
 
-                resposta.Dados = usuarios;
-                resposta.Mensagem = "Produto atualizado com sucesso.";
+                resposta.Dados = new List<UsrUsuario> { usuarios };
+                resposta.Mensagem = "Usuário atualizado com sucesso.";
                 resposta.Status = true;
                 return resposta;
             }

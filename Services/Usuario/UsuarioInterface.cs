@@ -9,7 +9,7 @@ namespace LojaProdutosV2.Services.Usuario
         Task<ResponseModel<List<UsrUsuario>>> ListarUsuarios();
         Task<ResponseModel<UsrUsuario>> BuscarPorId(long Id);
         Task<ResponseModel<UsrUsuario>> Criar(UsrUsuario usuario);
-        Task<ResponseModel<UsrUsuario>> Atualizar(UsuarioAtualizarDto usuarioAtualizar);
+        Task<ResponseModel<List<UsrUsuario>>> Atualizar(UsuarioAtualizarDto usuarioAtualizar);
         Task<ResponseModel<bool>> Deletar(long Id);
     }
 }

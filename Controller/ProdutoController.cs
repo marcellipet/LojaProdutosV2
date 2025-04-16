@@ -25,9 +25,9 @@ namespace LojaProdutosV2.NovaPasta
         }
 
         [HttpGet("BuscarPorId/{Id}")]
-        public async Task<ActionResult<ResponseModel<PrdProduto>>> BuscarPorId(long Id)
+        public async Task<ActionResult<ResponseModel<PrdProduto>>> BuscarPorId(long id)
         {
-            var produto = await _produtoInterface.BuscarPorId(Id);
+            var produto = await _produtoInterface.BuscarPorId(id);
             return Ok(produto);
         }
 
@@ -39,8 +39,8 @@ namespace LojaProdutosV2.NovaPasta
             return Ok(resposta);
         }
 
-        [HttpPut("Atualizar")]
-        public async Task<ActionResult<ResponseModel<PrdProduto>>> Atualizar( ProdutoAtualizarDto produtoAtualizar)
+        [HttpPut("{id}/Atualizar")]
+        public async Task<ActionResult<ResponseModel<PrdProduto>>> Atualizar(long id,ProdutoAtualizarDto produtoAtualizar)
         {
             if(produtoAtualizar == null)  
             {
@@ -51,10 +51,10 @@ namespace LojaProdutosV2.NovaPasta
             return Ok(resposta);
         }
 
-        [HttpDelete("Deletar/{Id}")]
-        public async Task<ActionResult<ResponseModel<bool>>> Deletar(long Id)
+        [HttpDelete("Deletar/{id}")]
+        public async Task<ActionResult<ResponseModel<bool>>> Deletar(long id)
         {
-            var resposta = await _produtoInterface.Deletar(Id);
+            var resposta = await _produtoInterface.Deletar(id);
             return Ok(resposta);
         }
     }

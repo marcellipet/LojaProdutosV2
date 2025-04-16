@@ -1,0 +1,15 @@
+﻿using LojaProdutos.Models;
+using LojaProdutosV2.Dto;
+using LojaProdutosV2.Models;
+
+namespace LojaProdutosV2.Services.ContatoTipo
+{
+    public interface IContatoTipoInterface
+    {
+        Task<ResponseModel<List<CntContatoTipo>>> ListarTodos();
+        Task<ResponseModel<CntContatoTipo>> BuscarPorId(long Id);
+        Task<ResponseModel<CntContatoTipo>> Criar(CntContatoTipo contatoTipo);
+        Task<ResponseModel<List<CntContatoTipo>>> Atualizar(ContatoTipoAtualizarDto contatoTipoAtualizar);
+        Task<ResponseModel<bool>> Deletar(long Id);
+    }
+}

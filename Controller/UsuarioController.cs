@@ -24,10 +24,10 @@ namespace LojaProdutosV2.Controller
             return Ok(usuarios);
         }
 
-        [HttpGet("BuscarPorId/{Id}")]
-        public async Task<ActionResult<ResponseModel<UsrUsuario>>> BuscarPorId(long Id)
+        [HttpGet("BuscarPorId/{id}")]
+        public async Task<ActionResult<ResponseModel<UsrUsuario>>> BuscarPorId(long id)
         {
-            var usuario = await _usuarioInterface.BuscarPorId(Id);
+            var usuario = await _usuarioInterface.BuscarPorId(id);
             return Ok(usuario);
         }
 
@@ -39,7 +39,7 @@ namespace LojaProdutosV2.Controller
         }
 
         [HttpPut("Atualizar")]
-        public async Task<ActionResult<ResponseModel<UsrUsuario>>> Atualizar(UsuarioAtualizarDto usuarioAtualizar)
+        public async Task<ActionResult<ResponseModel<UsrUsuario>>> Atualizar(long id, UsuarioAtualizarDto usuarioAtualizar)
         {
             if (usuarioAtualizar == null)
             {
@@ -49,10 +49,10 @@ namespace LojaProdutosV2.Controller
             return Ok(resposta);
         }
 
-        [HttpDelete("Deletar/{Id}")]
-        public ActionResult<ResponseModel<bool>> Deletar(long Id)
+        [HttpDelete("Deletar/{id}")]
+        public ActionResult<ResponseModel<bool>> Deletar(long id)
         {
-            var resposta = _usuarioInterface.Deletar(Id);
+            var resposta = _usuarioInterface.Deletar(id);
             return Ok(resposta);
         }
 

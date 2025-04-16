@@ -13,7 +13,7 @@ namespace LojaProdutos.Models
         [Required]
         [StringLength(50)]
         [Display(Name = "Tipo de contato")]
-        public string Nome { get; protected set; }
+        public string Nome { get; set; }
 
         [Display(Name = "Descrição")]
         public string Descricao { get; set; } = string.Empty;

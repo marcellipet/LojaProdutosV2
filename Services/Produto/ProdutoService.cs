@@ -14,30 +14,32 @@ namespace LojaProdutosV2.Services.Produto
         {
             _context = context;
         }
-        public async Task<ResponseModel<PrdProduto>> Atualizar(ProdutoAtualizarDto produtoAtualizar)
+        public async Task<ResponseModel<List<PrdProduto>>> Atualizar(ProdutoAtualizarDto produtoAtualizar)
         {
-            ResponseModel<PrdProduto> resposta = new ResponseModel<PrdProduto>();
+            ResponseModel<List<PrdProduto>> resposta = new ResponseModel<List<PrdProduto>>();
 
             try
             {
-                var produtos = await _context.Produtos.FindAsync(produtoAtualizar);
+                var produtos = await _context.Produtos.FirstOrDefaultAsync(prdProduto => prdProduto.Id == produtoAtualizar.Id);
                 if (produtos == null)
                 {
                     resposta.Mensagem = "Produto não encontrado.";
                     resposta.Status = false;
                     return resposta;
                 }
+
                 produtos.Nome = produtoAtualizar.Nome;
                 produtos.Descricao = produtoAtualizar.Descricao;
                 produtos.Preco = produtoAtualizar.Preco;
                 produtos.Foto = produtoAtualizar.Foto;
 
-                _context.Update(produtos);
+                _context.Produtos.Update(produtos);
                 await _context.SaveChangesAsync();
 
-                resposta.Dados = produtos;
+                resposta.Dados = new List<PrdProduto> { produtos };
                 resposta.Mensagem = "Produto atualizado com sucesso.";
                 resposta.Status = true;
+
                 return resposta;
             }
             catch (Exception ex)
