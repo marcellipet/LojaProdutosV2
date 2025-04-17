@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LojaProdutosV2.Controller
 {
+    [Route("ContatoTipos")]
     public class ContatoTipoController : ControllerBase
     {
         private readonly IContatoTipoInterface _contatoTipoInterface;
@@ -42,7 +43,7 @@ namespace LojaProdutosV2.Controller
         }
 
         [HttpPut("{id}/Atualizar")]
-        public async Task<ActionResult<ResponseModel<CntContatoTipo>>> Atualizar(long id, [FromBody] ContatoTipoAtualizarDto contatoTipoAtualizar)
+        public async Task<ActionResult<ResponseModel<CntContatoTipo>>> Atualizar(long id, [FromBody]ContatoTipoAtualizarDto contatoTipoAtualizar)
         {
             if (contatoTipoAtualizar == null)
             {

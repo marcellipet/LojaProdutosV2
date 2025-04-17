@@ -46,12 +46,12 @@ namespace LojaProdutosV2.Services.Contato
             }
         }
 
-        public  async Task<ResponseModel<CntContato>> BuscarPorId(long Id)
+        public  async Task<ResponseModel<CntContato>> BuscarPorId(long id)
         {
             ResponseModel<CntContato> resposta = new ResponseModel<CntContato>();
             try
             {
-                var contato = _context.Contatos.FirstOrDefaultAsync(cntContato => cntContato.Id == Id);
+                var contato = _context.Contatos.FirstOrDefaultAsync(cntContato => cntContato.Id == id);
                 if (contato == null)
                 {
                     resposta.Mensagem = "Contato não encontrado.";
@@ -91,13 +91,13 @@ namespace LojaProdutosV2.Services.Contato
             }
         }
 
-        public async Task<ResponseModel<bool>> Deletar(long Id)
+        public async Task<ResponseModel<bool>> Deletar(long id)
         {
             ResponseModel<bool> resposta = new ResponseModel<bool>();
 
             try
             {
-                var contato = _context.Contatos.FirstOrDefaultAsync(cntContato => cntContato.Id == Id);
+                var contato = _context.Contatos.FirstOrDefaultAsync(cntContato => cntContato.Id == id);
                 if (contato == null)
                 {
                     resposta.Mensagem = "Contato não encontrado.";

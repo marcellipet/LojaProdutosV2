@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LojaProdutosV2.Controller
 {
-    [Route("api/[controller]")]
+    [Route("Contatos")]
     public class ContatoController : ControllerBase
     {
         private readonly IContatoInterface _contatoInterface;
@@ -30,7 +30,7 @@ namespace LojaProdutosV2.Controller
         }
 
         [HttpPost("Criar")]
-        public async Task<ActionResult<ResponseModel<CntContato>>> Criar(CntContato contato)
+        public async Task<ActionResult<ResponseModel<CntContato>>> Criar([FromBody]CntContato contato)
         {
             if (contato == null)
             {
@@ -41,7 +41,7 @@ namespace LojaProdutosV2.Controller
         }
 
         [HttpPut("{id}/Atualizar")]
-        public async Task<ActionResult<ResponseModel<CntContato>>> Atualizar(long id, [FromBody] ContatoAtualizarDto contatoAtualizar)
+        public async Task<ActionResult<ResponseModel<CntContato>>> Atualizar(long id, [FromBody]ContatoAtualizarDto contatoAtualizar)
         {
             if (contatoAtualizar == null)
             {

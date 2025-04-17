@@ -7,8 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LojaProdutosV2.Controller
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    [Route("Usuarios")]
     public class UsuarioController : ControllerBase
     {
         private readonly IUsuarioInterface _usuarioInterface;
@@ -24,22 +23,15 @@ namespace LojaProdutosV2.Controller
             return Ok(usuarios);
         }
 
-        [HttpGet("BuscarPorId/{id}")]
+        [HttpGet("{id}/BuscarPorId")]
         public async Task<ActionResult<ResponseModel<UsrUsuario>>> BuscarPorId(long id)
         {
             var usuario = await _usuarioInterface.BuscarPorId(id);
             return Ok(usuario);
         }
 
-        [HttpPost("Criar")]
-        public async Task<ActionResult<ResponseModel<UsrUsuario>>> Criar(UsrUsuario usuario)
-        {
-            var resposta = await _usuarioInterface.Criar(usuario);
-            return Ok(resposta);
-        }
-
         [HttpPut("Atualizar")]
-        public async Task<ActionResult<ResponseModel<UsrUsuario>>> Atualizar(long id, UsuarioAtualizarDto usuarioAtualizar)
+        public async Task<ActionResult<ResponseModel<UsrUsuario>>> Atualizar(long id, [FromBody]UsuarioAtualizarDto usuarioAtualizar)
         {
             if (usuarioAtualizar == null)
             {
@@ -49,7 +41,7 @@ namespace LojaProdutosV2.Controller
             return Ok(resposta);
         }
 
-        [HttpDelete("Deletar/{id}")]
+        [HttpDelete("{id}/Deletar")]
         public ActionResult<ResponseModel<bool>> Deletar(long id)
         {
             var resposta = _usuarioInterface.Deletar(id);

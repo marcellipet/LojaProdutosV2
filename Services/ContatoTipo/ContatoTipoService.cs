@@ -47,12 +47,12 @@ namespace LojaProdutosV2.Services.ContatoTipo
             }
         }
 
-        public async Task<ResponseModel<CntContatoTipo>> BuscarPorId(long Id)
+        public async Task<ResponseModel<CntContatoTipo>> BuscarPorId(long id)
         {
             ResponseModel<CntContatoTipo> resposta = new ResponseModel<CntContatoTipo>();
             try
             {
-                CntContatoTipo contatoTipo = _context.ContatoTipos.FirstOrDefault(x => x.Id == Id);
+                CntContatoTipo contatoTipo = _context.ContatoTipos.FirstOrDefault(x => x.Id == id);
                 if (contatoTipo == null)
                 {
                     resposta.Mensagem = "Contato tipo não encontrado.";
@@ -98,7 +98,7 @@ namespace LojaProdutosV2.Services.ContatoTipo
             }
         }
 
-        public async Task<ResponseModel<bool>> Deletar(long Id)
+        public async Task<ResponseModel<bool>> Deletar(long id)
         {
             ResponseModel<bool> resposta = new ResponseModel<bool>();
             try

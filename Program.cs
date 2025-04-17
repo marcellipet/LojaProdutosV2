@@ -1,6 +1,7 @@
 
 using System;
 using LojaProdutos.Data;
+using LojaProdutosV2.Extensions;
 using LojaProdutosV2.Services.Contato;
 using LojaProdutosV2.Services.ContatoTipo;
 using LojaProdutosV2.Services.Endereco;
@@ -23,11 +24,11 @@ namespace LojaProdutosV2
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddScoped<IProdutoInterface, ProdutoService>();
-            builder.Services.AddScoped<IUsuarioInterface, UsuarioService>();
-            builder.Services.AddScoped<IContatoInterface, ContatoService>();
-            builder.Services.AddScoped<IContatoTipoInterface, ContatoTipoService>();
-            builder.Services.AddScoped<IEnderecoInterface, EnderecoService>();
+            #region Dendency Injection
+
+            builder.Services.AddDependencyInjection();
+
+            #endregion
 
             builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString")));
@@ -44,7 +45,7 @@ namespace LojaProdutosV2
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
+            app.UseAuthentication();
 
             app.MapControllers();
 

@@ -29,7 +29,7 @@ namespace LojaProdutosV2.Services.Usuario
                 }
                 usuarios.Nome = usuarioAtualizar.Nome;
                 usuarios.Email = usuarioAtualizar.Email;
-                
+
                 _context.Usuarios.Update(usuarios);
                 await _context.SaveChangesAsync();
 
@@ -45,12 +45,12 @@ namespace LojaProdutosV2.Services.Usuario
                 return resposta;
             }
         }
-        public async Task<ResponseModel<UsrUsuario>> BuscarPorId(long Id)
+        public async Task<ResponseModel<UsrUsuario>> BuscarPorId(long id)
         {
             ResponseModel<UsrUsuario> resposta = new ResponseModel<UsrUsuario>();
             try
             {
-                var usuario = await _context.Usuarios.FirstOrDefaultAsync(usrUsuario => usrUsuario.Id == Id);
+                var usuario = await _context.Usuarios.FirstOrDefaultAsync(usrUsuario => usrUsuario.Id == id);
                 if (usuario == null)
                 {
                     resposta.Mensagem = "Usuário não encontrado.";
@@ -89,12 +89,12 @@ namespace LojaProdutosV2.Services.Usuario
                 return resposta;
             }
         }
-        public async Task<ResponseModel<bool>> Deletar(long Id)
+        public async Task<ResponseModel<bool>> Deletar(long id)
         {
             ResponseModel<bool> resposta = new ResponseModel<bool>();
             try
             {
-                var usuarios = await _context.Produtos.FindAsync(Id);
+                var usuarios = await _context.Produtos.FindAsync(id);
                 if (usuarios == null)
                 {
                     resposta.Mensagem = "Produto não encontrado.";

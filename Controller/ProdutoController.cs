@@ -7,8 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LojaProdutosV2.NovaPasta
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    [Route("Produtos")]
     public class ProdutoController : ControllerBase
     {
         private readonly IProdutoInterface _produtoInterface;
@@ -24,7 +23,7 @@ namespace LojaProdutosV2.NovaPasta
             return Ok(produtos);
         }
 
-        [HttpGet("BuscarPorId/{Id}")]
+        [HttpGet("{id}/BuscarPorId")]
         public async Task<ActionResult<ResponseModel<PrdProduto>>> BuscarPorId(long id)
         {
             var produto = await _produtoInterface.BuscarPorId(id);
@@ -33,14 +32,14 @@ namespace LojaProdutosV2.NovaPasta
 
 
         [HttpPost("Criar")]
-        public async Task<ActionResult<ResponseModel<PrdProduto>>> Criar(PrdProduto produto)
+        public async Task<ActionResult<ResponseModel<PrdProduto>>> Criar([FromBody]PrdProduto produto)
         {
             var resposta = await _produtoInterface.Criar(produto);
             return Ok(resposta);
         }
 
         [HttpPut("{id}/Atualizar")]
-        public async Task<ActionResult<ResponseModel<PrdProduto>>> Atualizar(long id,ProdutoAtualizarDto produtoAtualizar)
+        public async Task<ActionResult<ResponseModel<PrdProduto>>> Atualizar(long id, [FromBody]ProdutoAtualizarDto produtoAtualizar)
         {
             if(produtoAtualizar == null)  
             {
@@ -51,7 +50,7 @@ namespace LojaProdutosV2.NovaPasta
             return Ok(resposta);
         }
 
-        [HttpDelete("Deletar/{id}")]
+        [HttpDelete("{id}/Deletar")]
         public async Task<ActionResult<ResponseModel<bool>>> Deletar(long id)
         {
             var resposta = await _produtoInterface.Deletar(id);

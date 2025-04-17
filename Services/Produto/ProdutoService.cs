@@ -49,12 +49,12 @@ namespace LojaProdutosV2.Services.Produto
                 return resposta;
             }
         }
-        public async Task<ResponseModel<PrdProduto>> BuscarPorId(long Id)
+        public async Task<ResponseModel<PrdProduto>> BuscarPorId(long id)
         {
             ResponseModel<PrdProduto> resposta = new ResponseModel<PrdProduto>();
             try
             {
-                var produtos = _context.Produtos.FirstOrDefaultAsync(prdProduto => prdProduto.Id == Id);
+                var produtos = _context.Produtos.FirstOrDefaultAsync(prdProduto => prdProduto.Id == id);
 
                 if (produtos == null)
                 {
@@ -107,12 +107,12 @@ namespace LojaProdutosV2.Services.Produto
             }
         }
 
-        public async Task<ResponseModel<bool>> Deletar(long Id)
+        public async Task<ResponseModel<bool>> Deletar(long id)
         {
            ResponseModel<bool> resposta = new ResponseModel<bool>();
             try
             {
-                var produtos = await _context.Produtos.FindAsync(Id);
+                var produtos = await _context.Produtos.FindAsync(id);
                 if (produtos == null)
                 {
                     resposta.Mensagem = "Produto não encontrado.";

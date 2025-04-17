@@ -7,9 +7,9 @@ namespace LojaProdutosV2.Services.ContatoTipo
     public interface IContatoTipoInterface
     {
         Task<ResponseModel<List<CntContatoTipo>>> ListarTodos();
-        Task<ResponseModel<CntContatoTipo>> BuscarPorId(long Id);
+        Task<ResponseModel<CntContatoTipo>> BuscarPorId(long id);
         Task<ResponseModel<CntContatoTipo>> Criar(CntContatoTipo contatoTipo);
         Task<ResponseModel<List<CntContatoTipo>>> Atualizar(ContatoTipoAtualizarDto contatoTipoAtualizar);
-        Task<ResponseModel<bool>> Deletar(long Id);
+        Task<ResponseModel<bool>> Deletar(long id);
     }
 }

@@ -26,9 +26,9 @@ namespace LojaProdutosV2.Dto
         [Required]
         public string Bairro { get; set; }
 
-        // nao sei se fiz certo 
-        [ForeignKey("UsrUsuarioRefId")]
-        [Required]
-        public UsrUsuario IdUsuario { get; set; }
+        //// nao sei se fiz certo 
+        //[ForeignKey("UsrUsuarioRefId")]
+        //[Required]
+        //public UsrUsuario IdUsuario { get; set; }
     }
 }
