@@ -1,4 +1,6 @@
-﻿using LojaProdutosV2.Dto;
+﻿using LojaProdutos.Models;
+using LojaProdutosV2.Dto;
+using LojaProdutosV2.Models;
 using LojaProdutosV2.Services.Authentication;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,16 +18,24 @@ namespace LojaProdutosV2.Controller
 
 
         [HttpPost("Login")]
-        public async Task<ActionResult> Login([FromBody]LogarDto logarDto)
+        public async Task<ActionResult> Logar([FromBody]LogarDto logarDto)
         {
            var autentic = _authenticationInterface.Logar(logarDto.Email, logarDto.Senha);
             return Ok(autentic);
         }
 
         [HttpPost("Registro")]
-        public async Task<ActionResult> Registro()
+        public async Task<ResponseModel<ActionResult>> Registro([FromBody] UsrUsuario usrUsuario)
         {
-            return NoContent();
+            var resposta = _authenticationInterface.Registro(usrUsuario.Email, usrUsuario.HashSenha, usrUsuario.Nome);
+            if (resposta.Status)
+            {
+                return Ok(resposta);
+            }
+            else
+            {
+                return BadRequest(resposta);
+            }
         }
 
         [HttpPost("RefreshToken")]

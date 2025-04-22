@@ -37,5 +37,61 @@ namespace LojaProdutosV2.Services.Authentication
             resposta.Status = true;
             return resposta;
         }
+
+        public async Task<ResponseModel<UsrUsuario>> Registro(string email, string senha, string nome)
+        {
+            ResponseModel<UsrUsuario> resposta = new ResponseModel<UsrUsuario>();
+
+            if (string.IsNullOrEmpty(nome) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(senha))
+            {
+                resposta.Mensagem = "Preencha todos os campos!";
+                resposta.Status = false;
+                return resposta;
+
+            }
+
+            if (senha.Length < 6)
+            {
+                resposta.Mensagem = "A senha deve ter no mínimo 6 caracteres!";
+                resposta.Status = false;
+                return resposta;
+            }
+
+
+            var usuario = await _context.Usuarios.FirstOrDefaultAsync(usuarios => usuarios.Email.Equals(email, StringComparison.CurrentCultureIgnoreCase));
+
+            if (usuario != null)
+            {
+                resposta.Mensagem = "Email já cadastrado!";
+                resposta.Status = false;
+                return resposta;
+            }
+
+            var hashSenha = HashPassword(senha);
+        
+            if(string.IsNullOrEmpty(hashSenha))
+            {
+                resposta.Mensagem = "Erro ao gerar hash da senha.";
+                resposta.Status = false;
+                return resposta;
+
+            }
+
+            UsrUsuario novoUsuario = new UsrUsuario
+            {
+                Nome = nome,
+                Email = email,
+                HashSenha = hashSenha
+            };
+
+            _context.Usuarios.Add(novoUsuario);
+            await _context.SaveChangesAsync();
+
+            resposta.Dados = novoUsuario;
+            resposta.Mensagem = "Usuário cadastrado com sucesso!";
+            resposta.Status = true;
+            return resposta;    
+
+        }
     }
 }
