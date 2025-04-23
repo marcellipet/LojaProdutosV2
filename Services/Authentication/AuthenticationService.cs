@@ -15,9 +15,30 @@ namespace LojaProdutosV2.Services.Authentication
             _context = context;
         }
 
-        public Task<ResponseModel<LoginDto>> AccesToken(string accessToken, string refreshToken)
+        public async Task<ResponseModel<TokenResponse>> AccesToken(string accessToken, string refreshToken)
         {
-            throw new NotImplementedException();
+            //ResponseModel<TokenResponse> resposta = new ResponseModel<TokenResponse>();
+
+            //if (string.IsNullOrEmpty(accessToken) || string.IsNullOrEmpty(refreshToken))
+            //{
+            //    resposta.Mensagem = "Preencha todos os campos!";
+            //    resposta.Status = false;
+            //    return resposta;
+            //}
+            //var usuario = await _context.Usuarios.FirstOrDefaultAsync(usuarios => usuarios.Equals(refreshToken));
+
+            //if (usuario == null)
+            //{
+            //    resposta.Mensagem = "Refresh token inválido.";
+            //    resposta.Status = false;
+            //    return resposta;
+            //}
+
+            //resposta.Dados = new TokenResponse(accessToken, refreshToken, DateTime.UtcNow.AddHours(1));
+            //resposta.Status = true;
+            //return resposta;
+
+
         }
 
         public async Task<ResponseModel<LoginDto>> Logar(string email, string senha)
@@ -43,6 +64,35 @@ namespace LojaProdutosV2.Services.Authentication
             resposta.Status = true;
             return resposta;
         }
+
+        //public async Task<ResponseModel<TokenResponse>> RefreshToken(string refreshToken, DateTime dateTime)
+        //{
+        //    //ResponseModel<TokenResponse> resposta = new ResponseModel<TokenResponse>();
+
+        //    //if (string.IsNullOrEmpty(refreshToken))
+        //    //{
+        //    //    resposta.Mensagem = "Refresh token inválido.";
+        //    //    resposta.Status = false;
+        //    //    return resposta;
+        //    //}
+        //    //var usuario = await _context.Usuarios.FirstOrDefaultAsync(usuarios => usuarios.Equals(refreshToken));
+        //    //if (usuario == null)
+        //    //{
+        //    //    resposta.Mensagem = "Refresh token inválido.";
+        //    //    resposta.Status = false;
+        //    //    return resposta;
+        //    //}
+
+        //    //var accessToken = Guid.NewGuid().ToString();
+        //    //var newRefreshToken = Guid.NewGuid().ToString();
+        //    //var expiration = DateTime.UtcNow.AddHours(1);
+
+        //    //resposta.Dados = new TokenResponse(accessToken, newRefreshToken, expiration);
+        //    //resposta.Status = true;
+        //    //return resposta;
+
+
+        //}
 
         public async Task<ResponseModel<UsrUsuario>> Registro(string email, string senha, string nome)
         {
@@ -100,6 +150,9 @@ namespace LojaProdutosV2.Services.Authentication
 
         }
 
-
+        public Task<ResponseModel<RefreshTokenDto>> Token(string accessToken, string hash)
+        {
+            ResponseModel<RefreshTokenDto> resposta = new ResponseModel<RefreshTokenDto>();
+        }
     }
 }

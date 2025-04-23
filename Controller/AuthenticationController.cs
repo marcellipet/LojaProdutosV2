@@ -34,7 +34,17 @@ namespace LojaProdutosV2.Controller
         [HttpPost("RefreshToken")]
         public async Task<ActionResult> RefreshToken()
         {
-            return NoContent();
+            var refreshToken = Request.Headers["RefreshToken"].ToString();
+            var accessToken = Request.Headers["AccessToken"].ToString();
+            var dateTime = DateTime.UtcNow;
+            var token = _authenticationInterface.RefreshToken(refreshToken, dateTime);
+
+            if (string.IsNullOrEmpty(token.Result.Dados.RefreshToken))
+            {
+                return BadRequest("Refresh token inválido.");
+            }
+
+            return Ok(token);
         }
 
         [HttpGet("Me")]
