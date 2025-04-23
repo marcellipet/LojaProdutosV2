@@ -1,7 +1,7 @@
 ﻿using LojaProdutos.Data;
 using LojaProdutos.Models;
 using LojaProdutosV2.Dto;
-using LojaProdutosV2.Models;
+using LojaProdutosV2.Models.RequestResponse;
 using Microsoft.EntityFrameworkCore;
 using static BCrypt.Net.BCrypt;
 
@@ -14,6 +14,12 @@ namespace LojaProdutosV2.Services.Authentication
         {
             _context = context;
         }
+
+        public Task<ResponseModel<LoginDto>> AccesToken(string accessToken, string refreshToken)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<ResponseModel<LoginDto>> Logar(string email, string senha)
         {
             ResponseModel<LoginDto> resposta = new ResponseModel<LoginDto>();
@@ -68,8 +74,8 @@ namespace LojaProdutosV2.Services.Authentication
             }
 
             var hashSenha = HashPassword(senha);
-        
-            if(string.IsNullOrEmpty(hashSenha))
+
+            if (string.IsNullOrEmpty(hashSenha))
             {
                 resposta.Mensagem = "Erro ao gerar hash da senha.";
                 resposta.Status = false;
@@ -90,8 +96,10 @@ namespace LojaProdutosV2.Services.Authentication
             resposta.Dados = novoUsuario;
             resposta.Mensagem = "Usuário cadastrado com sucesso!";
             resposta.Status = true;
-            return resposta;    
+            return resposta;
 
         }
+
+
     }
 }

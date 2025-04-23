@@ -1,6 +1,6 @@
 ﻿using LojaProdutos.Models;
 using LojaProdutosV2.Dto;
-using LojaProdutosV2.Models;
+using LojaProdutosV2.Models.RequestResponse;
 using LojaProdutosV2.Services.Contato;
 using LojaProdutosV2.Services.ContatoTipo;
 using Microsoft.AspNetCore.Mvc;

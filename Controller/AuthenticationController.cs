@@ -25,17 +25,10 @@ namespace LojaProdutosV2.Controller
         }
 
         [HttpPost("Registro")]
-        public async Task<ResponseModel<ActionResult>> Registro([FromBody] UsrUsuario usrUsuario)
+        public async Task<ActionResult> Registro([FromBody] UsrUsuario usrUsuario)
         {
-            var resposta = _authenticationInterface.Registro(usrUsuario.Email, usrUsuario.HashSenha, usrUsuario.Nome);
-            if (resposta.Status)
-            {
-                return Ok(resposta);
-            }
-            else
-            {
-                return BadRequest(resposta);
-            }
+            var registro = _authenticationInterface.Registro(usrUsuario.Email, usrUsuario.HashSenha, usrUsuario.Nome);
+            return Ok(registro);
         }
 
         [HttpPost("RefreshToken")]

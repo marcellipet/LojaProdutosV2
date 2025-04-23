@@ -1,6 +1,6 @@
 ﻿using LojaProdutos.Models;
 using LojaProdutosV2.Dto;
-using LojaProdutosV2.Models;
+using LojaProdutosV2.Models.RequestResponse;
 using LojaProdutosV2.Services.Usuario;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

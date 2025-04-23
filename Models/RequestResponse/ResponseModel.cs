@@ -1,4 +1,4 @@
-﻿namespace LojaProdutosV2.Models
+﻿namespace LojaProdutosV2.Models.RequestResponse
 {
     public class ResponseModel<T>
     {

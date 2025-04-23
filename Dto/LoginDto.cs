@@ -11,4 +11,9 @@
             RefreshToken = refreshToken;
         }
     }
+
+    public class RefreshTokenDto
+    {
+        public string RefreshToken { get; set; }
+    }
 }

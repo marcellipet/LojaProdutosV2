@@ -1,7 +1,7 @@
 ﻿using LojaProdutos.Data;
 using LojaProdutos.Models;
 using LojaProdutosV2.Dto;
-using LojaProdutosV2.Models;
+using LojaProdutosV2.Models.RequestResponse;
 using Microsoft.EntityFrameworkCore;
 
 namespace LojaProdutosV2.Services.Contato
@@ -46,7 +46,7 @@ namespace LojaProdutosV2.Services.Contato
             }
         }
 
-        public  async Task<ResponseModel<CntContato>> BuscarPorId(long id)
+        public async Task<ResponseModel<CntContato>> BuscarPorId(long id)
         {
             ResponseModel<CntContato> resposta = new ResponseModel<CntContato>();
             try

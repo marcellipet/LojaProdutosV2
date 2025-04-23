@@ -1,7 +1,7 @@
 ﻿using LojaProdutos.Data;
 using LojaProdutos.Models;
 using LojaProdutosV2.Dto;
-using LojaProdutosV2.Models;
+using LojaProdutosV2.Models.RequestResponse;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 
