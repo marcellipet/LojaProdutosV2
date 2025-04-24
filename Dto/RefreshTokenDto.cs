@@ -2,7 +2,8 @@
 {
     public class RefreshTokenDto
     {
-        public long Id { get; protected set; }
         public string Token { get; set; } = string.Empty;
+        public string HashRefresh { get; set; }
     }
+   
 }

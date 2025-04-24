@@ -1,6 +1,7 @@
 ﻿using LojaProdutos.Models;
 using LojaProdutosV2.Dto;
 using LojaProdutosV2.Models;
+using LojaProdutosV2.Models.RequestResponse;
 using LojaProdutosV2.Services.Authentication;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,21 +32,34 @@ namespace LojaProdutosV2.Controller
             return Ok(registro);
         }
 
+        //[HttpPost("RefreshToken")]
+        //public async Task<ActionResult> RefreshToken()
+        //{
+        //    var refreshToken = Request.Headers["RefreshToken"].ToString();
+        //    var accessToken = Request.Headers["AccessToken"].ToString();
+        //    var dateTime = DateTime.UtcNow;
+        //    var token = _authenticationInterface.RefreshToken(refreshToken, dateTime);
+
+        //    if (string.IsNullOrEmpty(token.Result.Dados.RefreshToken))
+        //    {
+        //        return BadRequest("Refresh token inválido.");
+        //    }
+
+        //    return Ok(token);
+        //}
+
         [HttpPost("RefreshToken")]
-        public async Task<ActionResult> RefreshToken()
+        public async Task<ActionResult> ValidateAndGenerateToken([FromBody] RefreshTokenDto refreshTokenDto)
         {
-            var refreshToken = Request.Headers["RefreshToken"].ToString();
-            var accessToken = Request.Headers["AccessToken"].ToString();
-            var dateTime = DateTime.UtcNow;
-            var token = _authenticationInterface.RefreshToken(refreshToken, dateTime);
+            var token = await _authenticationInterface.ValidateAndGenerateToken(refreshTokenDto.Token, refreshTokenDto.HashRefresh);
 
-            if (string.IsNullOrEmpty(token.Result.Dados.RefreshToken))
+            if (string.IsNullOrEmpty(token.Dados?.Token))
             {
-                return BadRequest("Refresh token inválido.");
+                return BadRequest("RefreshToken inválido.");
             }
-
             return Ok(token);
         }
+        
 
         [HttpGet("Me")]
         public async Task<ActionResult> Me()

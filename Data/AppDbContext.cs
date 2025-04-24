@@ -1,4 +1,5 @@
 ﻿using LojaProdutos.Models;
+using LojaProdutosV2.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace LojaProdutos.Data
@@ -14,6 +15,7 @@ namespace LojaProdutos.Data
         public DbSet<CntContato> Contatos { get; set; }
         public DbSet<CntContatoTipo> ContatoTipos { get; set; }
         public DbSet<EndEndereco> Enderecos { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
 
     }
 }

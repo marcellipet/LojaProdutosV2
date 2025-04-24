@@ -9,10 +9,13 @@ namespace LojaProdutosV2.Models
     {
         [Key]
         public long Id { get; protected set; }
-        public string Token { get;  set; } = string.Empty;
-
+        public string Token { get;  set; }
 
         [ForeignKey(nameof(UsrUsuario))]
-        public required UsrUsuario IdUsuario { get; set; }
+        public long IdUsuario { get; set; }
+
+        public UsrUsuario UsrUsuario { get; init; }
+
     }
+
 }

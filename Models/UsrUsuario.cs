@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using LojaProdutosV2.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace LojaProdutos.Models
@@ -28,5 +29,6 @@ namespace LojaProdutos.Models
         
 
         public string? HashSenha { get; set; }
+
     }
 }

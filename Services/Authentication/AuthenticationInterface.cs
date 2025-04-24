@@ -8,11 +8,9 @@ namespace LojaProdutosV2.Services.Authentication
     {
         Task<ResponseModel<LoginDto>> Logar(string email, string senha);
         Task<ResponseModel<UsrUsuario>> Registro(string email, string senha, string nome);
-        Task<ResponseModel<RefreshTokenDto>> Token(string accessToken, string hash);
+        Task<ResponseModel<RefreshTokenDto>> ValidateAndGenerateToken(string accessToken, string hash);
 
         //Task<ResponseModel<TokenResponse>> RefreshToken(string refreshToken, DateTime dateTime);
-
-        Task<ResponseModel<TokenResponse>> AccesToken(string accessToken, string refreshToken);
         
     }
 
