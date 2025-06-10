@@ -2,6 +2,7 @@
 using LojaProdutosV2.Services.Contato;
 using LojaProdutosV2.Services.ContatoTipo;
 using LojaProdutosV2.Services.Endereco;
+using LojaProdutosV2.Services.Jwt;
 using LojaProdutosV2.Services.Produto;
 using LojaProdutosV2.Services.Usuario;
 
@@ -16,6 +17,7 @@ namespace LojaProdutosV2.Extensions
             services.AddScoped<IContatoTipoInterface, ContatoTipoService>();
             services.AddScoped<IEnderecoInterface, EnderecoService>();
             services.AddScoped<IAuthenticationInterface, AuthenticationService>();
+            services.AddScoped<IJwtManagerInterface, JwtManagerService>();
         }
     }
 }
