@@ -133,6 +133,45 @@ namespace LojaProdutosV2.Services.Usuario
                 resposta.Status = false;
                 return resposta;
             }
-        }
+
+        //     public UsrRefreshToken AddUserRefreshTokens(UsrRefreshToken usrRefreshToken)
+        //{
+        //    _context.UserRefreshToken.Add(usrRefreshToken);
+        //    _context.SaveChanges();
+        //    return usrRefreshToken;
+        //}
+
+        //public void DeleteUserRefreshToken(string username, string refreshToken)
+        //{
+        //    var item = _context.UserRefreshToken.FirstOrDefault(u => u.UsrName == username && u.RefreshToken == refreshToken);
+        //    if (item != null)
+        //    {
+        //        _context.UserRefreshToken.Remove(item);
+        //        _context.SaveChanges();
+        //    }
+        //}
+
+        //public UsrRefreshToken GetSavedRefreshToken(string username, string refreshtoken)
+        //{
+        //    if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(refreshtoken))
+        //    {
+        //        throw new ArgumentException("Username and refresh token cannot be null or empty.");
+        //    }
+        //    return _context.UserRefreshToken.FirstOrDefault(u => u.UsrName == username && u.RefreshToken == refreshtoken && u.IsActive == true);
+        //}
+
+        //public Task<bool> IsValidUserAsync(UsrUserLogin users)
+        //{
+        //    var user = _context.UserRegisters.FirstOrDefault(u => u.Nome == users.Username && u.Senha == users.Password);
+        //    if (user != null)
+        //    {
+        //        return Task.FromResult(true);
+        //    }
+        //    else
+        //    {
+        //        return Task.FromResult(false);
+        //    }
+        //}
+    }
     }
 }
