@@ -14,5 +14,4 @@ namespace LojaProdutosV2.Services.Authentication
         Task<ResponseModel<UsrToken>> RefreshToken(string refreshToken, DateTime dateTime);
         string GenerateJwtToken(string username);
     }
-
 }

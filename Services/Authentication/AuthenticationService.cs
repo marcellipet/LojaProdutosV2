@@ -71,34 +71,33 @@ namespace LojaProdutosV2.Services.Authentication
                 return resposta;
             }
 
-            //public async Task<ResponseModel<TokenResponse>> RefreshToken(string refreshToken, DateTime dateTime)
-            //{
-            //    ResponseModel<TokenResponse> resposta = new ResponseModel<TokenResponse>();
+            public async Task<ResponseModel<UsrToken>> RefreshToken(string refreshToken, DateTime dateTime)
+            {
+                ResponseModel<UsrToken> resposta = new ResponseModel<UsrToken>();
 
-            //    if (string.IsNullOrEmpty(refreshToken))
-            //    {
-            //        resposta.Mensagem = "Refresh token inválido.";
-            //        resposta.Status = false;
-            //        return resposta;
-            //    }
-            //    var usuario = await _context.Usuarios.FirstOrDefaultAsync(usuarios => usuarios.Equals(refreshToken));
-            //    if (usuario == null)
-            //    {
-            //        resposta.Mensagem = "Refresh token inválido.";
-            //        resposta.Status = false;
-            //        return resposta;
-            //    }
+                if (string.IsNullOrEmpty(refreshToken))
+                {
+                    resposta.Mensagem = "Refresh token inválido.";
+                    resposta.Status = false;
+                    return resposta;
+                }
+                var usuario = await _context.Usuarios.FirstOrDefaultAsync(usuarios => usuarios.Equals(refreshToken));
+                if (usuario == null)
+                {
+                    resposta.Mensagem = "Refresh token inválido.";
+                    resposta.Status = false;
+                    return resposta;
+                }
 
-            //    var accessToken = Guid.NewGuid().ToString();
-            //    var newRefreshToken = Guid.NewGuid().ToString();
-            //    var expiration = DateTime.UtcNow.AddHours(1);
+                var accessToken = Guid.NewGuid().ToString();
+                var newRefreshToken = Guid.NewGuid().ToString();
+                var expiration = DateTime.UtcNow.AddHours(1);
 
-            //    resposta.Dados = new TokenResponse(accessToken, newRefreshToken, expiration);
-            //    resposta.Status = true;
-            //    return resposta;
+                resposta.Status = true;
+                return resposta;
 
 
-            //}
+            }
 
             public async Task<ResponseModel<UsrUsuario>> Registro(string email, string senha, string nome)
             {

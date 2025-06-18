@@ -30,9 +30,9 @@ namespace LojaProdutosV2.Extensions
 
             //services.AddAuthentication(options =>
             //{
-            //    //options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    //options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    //options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            //    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            //    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            //    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             //})
             //    .AddJwtBearer(options =>
             //    {

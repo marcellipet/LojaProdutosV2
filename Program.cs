@@ -7,7 +7,11 @@ using LojaProdutosV2.Services.ContatoTipo;
 using LojaProdutosV2.Services.Endereco;
 using LojaProdutosV2.Services.Produto;
 using LojaProdutosV2.Services.Usuario;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace LojaProdutosV2
 {
@@ -16,6 +20,19 @@ namespace LojaProdutosV2
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+
+                //builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+                //{
+                //    options.Password.RequireDigit = true;
+                //    options.Password.RequireUppercase = true;
+                //    options.Password.RequireLowercase = true;
+                //    options.Password.RequiredLength = 8;
+                //    options.SignIn.RequireConfirmedEmail = true;
+                //}).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+            });
 
             // Add services to the container.
 
