@@ -34,21 +34,21 @@ namespace LojaProdutosV2.Controller
                 return Ok(registro);
             }
 
-        //    //[HttpPost("RefreshToken")]
-        //    //public async Task<ActionResult> RefreshToken()
-        //    //{
-        //    //    var refreshToken = Request.Headers["RefreshToken"].ToString();
-        //    //    var accessToken = Request.Headers["AccessToken"].ToString();
-        //    //    var dateTime = DateTime.UtcNow;
-        //    //    var token = _authenticationInterface.RefreshToken(refreshToken, dateTime);
+            [HttpPost("RefreshToken")]
+            public async Task<ActionResult> RefreshToken()
+            {
+                var refreshToken = Request.Headers["RefreshToken"].ToString();
+                var accessToken = Request.Headers["AccessToken"].ToString();
+                var dateTime = DateTime.UtcNow;
+                var token = _authenticationInterface.RefreshToken(refreshToken, dateTime);
 
-        //    //    if (string.IsNullOrEmpty(token.Result.Dados.RefreshToken))
-        //    //    {
-        //    //        return BadRequest("Refresh token inválido.");
-        //    //    }
+                if (string.IsNullOrEmpty(token.Result.Dados.RefreshToken))
+                {
+                    return BadRequest("Refresh token inválido.");
+                }
 
-        //    //    return Ok(token);
-        //    //}
+                return Ok(token);
+            }
 
         //    [HttpPost("RefreshToken")]
         //    public async Task<ActionResult> ValidateAndGenerateToken([FromBody] RefreshTokenDto refreshTokenDto)

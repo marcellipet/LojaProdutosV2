@@ -37,7 +37,7 @@ namespace LojaProdutosV2.Controller
 
         [AllowAnonymous]
         [HttpPost]
-        [Route("authenticate-user")]
+        [Route("AutenticacaoUsuario")]
         public async Task<IActionResult> AuthenticateAsync([FromBody] UsrUsuario userLogin)
         {
             var validUser = await _usuarioInterface.IsValidUserAsync(userLogin);

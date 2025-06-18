@@ -1,5 +1,6 @@
 ﻿using LojaProdutos.Models;
 using LojaProdutosV2.Dto;
+using LojaProdutosV2.Models;
 using LojaProdutosV2.Models.RequestResponse;
 
 namespace LojaProdutosV2.Services.Authentication
@@ -10,7 +11,7 @@ namespace LojaProdutosV2.Services.Authentication
         Task<ResponseModel<UsrUsuario>> Registro(string email, string senha, string nome);
         //Task<ResponseModel<RefreshTokenDto>> ValidateAndGenerateToken(string accessToken, string hash);
 
-        //Task<ResponseModel<TokenResponse>> RefreshToken(string refreshToken, DateTime dateTime);
+        Task<ResponseModel<UsrToken>> RefreshToken(string refreshToken, DateTime dateTime);
         string GenerateJwtToken(string username);
     }
 
