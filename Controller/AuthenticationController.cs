@@ -11,27 +11,28 @@ namespace LojaProdutosV2.Controller
     [Route("Auth")]
     public class AuthenticationController : ControllerBase
     {
-        //    private readonly IAuthenticationInterface  _authenticationInterface;
+            private readonly IAuthenticationInterface  _authenticationInterface;
 
-        //    public AuthenticationController(IAuthenticationInterface authenticationInterface)
-        //    {
-        //        _authenticationInterface = authenticationInterface;
-        //    }
+            public AuthenticationController(IAuthenticationInterface authenticationInterface)
+            {
+                _authenticationInterface = authenticationInterface;
+            }
 
 
-        //    [HttpPost("Login")]
-        //    public async Task<ActionResult> Logar([FromBody]LogarDto logarDto)
-        //    {
-        //       var autentic = _authenticationInterface.Logar(logarDto.Email, logarDto.Senha);
-        //        return Ok(autentic);
-        //    }
+            [HttpPost("Login")]
+            [AllowAnonymous]
+             public async Task<ActionResult> Logar([FromBody]LogarDto logarDto)
+            {
+               var autentic = _authenticationInterface.Logar(logarDto.Email, logarDto.Senha);
+                return Ok(autentic);
+            }
 
-        //    [HttpPost("Registro")]
-        //    public async Task<ActionResult> Registro([FromBody] UsrUsuario usrUsuario)
-        //    {
-        //        var registro = _authenticationInterface.Registro(usrUsuario.Email, usrUsuario.HashSenha, usrUsuario.Nome);
-        //        return Ok(registro);
-        //    }
+            [HttpPost("Registro")]
+            public async Task<ActionResult> Registro([FromBody] UsrUsuario usrUsuario)
+            {
+                var registro = _authenticationInterface.Registro(usrUsuario.Email, usrUsuario.HashSenha, usrUsuario.Nome);
+                return Ok(registro);
+            }
 
         //    //[HttpPost("RefreshToken")]
         //    //public async Task<ActionResult> RefreshToken()
@@ -62,19 +63,19 @@ namespace LojaProdutosV2.Controller
         //    }
 
 
-        //    [HttpGet("Me")]
-        //    public async Task<ActionResult> Me()
-        //    { 
-        //        return NoContent();
-        //    }
+        [HttpGet("Me")]
+            public async Task<ActionResult> Me()
+            { 
+                return NoContent();
+            }
         //}
 
 
-        private readonly AuthenticationService _authService;
-        public AuthenticationController(AuthenticationService authService)
-        {
-            _authService = authService;
-        }
+        //private readonly AuthenticationService _authService;
+        //public AuthenticationController(AuthenticationService authService)
+        //{
+        //    _authService = authService;
+        //}
 
         [HttpPost("login")]
         [AllowAnonymous]
@@ -82,7 +83,7 @@ namespace LojaProdutosV2.Controller
         {
             if (user.Nome == "admin" && user.HashSenha == "password")
             {
-                var jwtToken = _authService.GenerateJwtToken(user.Nome);
+                var jwtToken = _authenticationInterface.GenerateJwtToken(user.Nome);
                 return Ok(new { jwtToken });
             }
             return Unauthorized();

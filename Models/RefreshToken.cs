@@ -18,6 +18,11 @@ namespace LojaProdutosV2.Models
         [ForeignKey(nameof(UsrUsuario))]
         public long IdUsuario { get; set; }
 
+        [Required]
+        public string Nome { get; set; }
+
+        public DateTime Expiracao { get; set; } = DateTime.UtcNow.AddMinutes(2);
+
         public UsrUsuario? UsrUsuario { get; init; }
 
         public bool IsActive { get; set; } = true;

@@ -1,7 +1,10 @@
 ﻿using LojaProdutos.Models;
 using LojaProdutosV2.Dto;
+using LojaProdutosV2.Models;
 using LojaProdutosV2.Models.RequestResponse;
+using LojaProdutosV2.Services.Jwt;
 using LojaProdutosV2.Services.Usuario;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,8 +14,10 @@ namespace LojaProdutosV2.Controller
     public class UsuarioController : ControllerBase
     {
         private readonly IUsuarioInterface _usuarioInterface;
-        public UsuarioController(IUsuarioInterface usuarioInterface)
+        private readonly IJwtManagerInterface _jwtManager;
+        public UsuarioController(IJwtManagerInterface jwtManagerInterface ,IUsuarioInterface usuarioInterface)
         {
+            _jwtManager = jwtManagerInterface;
             _usuarioInterface = usuarioInterface;
         }
 
@@ -30,23 +35,56 @@ namespace LojaProdutosV2.Controller
             return Ok(usuario);
         }
 
-        [HttpPut("Atualizar")]
-        public async Task<ActionResult<ResponseModel<UsrUsuario>>> Atualizar(long id, [FromBody]UsuarioAtualizarDto usuarioAtualizar)
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("authenticate-user")]
+        public async Task<IActionResult> AuthenticateAsync([FromBody] UsrUsuario userLogin)
         {
+            var validUser = await _usuarioInterface.IsValidUserAsync(userLogin);
+
+            if (!validUser)
+            {
+                return Unauthorized();
+            }
+
+            var token = _jwtManager.GenerateToken(userLogin.Email);
+
+            if (token == null)
+            {
+                return BadRequest("Error generating token");
+            }
+
+            RefreshToken obj = new RefreshToken();
+            {
+                obj.Nome= userLogin.Email;
+                obj.UsrRefreshToken = _jwtManager.GenerateRefreshToken();
+                obj.IsActive = true;
+            }
+            return Ok(new
+            {
+                Token = token,
+                RefreshToken = obj.UsrRefreshToken,
+                Expiracao = obj.Expiracao
+            });
+        }
+
+            [HttpPut("Atualizar")]
+            public async Task<ActionResult<ResponseModel<UsrUsuario>>> Atualizar(long id, [FromBody]UsuarioAtualizarDto usuarioAtualizar)
+            {
             if (usuarioAtualizar == null)
             {
                 return BadRequest("Usuário não pode ser nulo.");
             }
             var resposta = await _usuarioInterface.Atualizar(usuarioAtualizar);
             return Ok(resposta);
-        }
+            }
 
-        [HttpDelete("{id}/Deletar")]
-        public ActionResult<ResponseModel<bool>> Deletar(long id)
-        {
+            [HttpDelete("{id}/Deletar")]
+            public ActionResult<ResponseModel<bool>> Deletar(long id)
+            {
             var resposta = _usuarioInterface.Deletar(id);
             return Ok(resposta);
-        }
+            }
 
     }
 }

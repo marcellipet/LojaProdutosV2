@@ -133,7 +133,7 @@ namespace LojaProdutosV2.Services.Usuario
                 resposta.Status = false;
                 return resposta;
             }
-
+        }
         //     public UsrRefreshToken AddUserRefreshTokens(UsrRefreshToken usrRefreshToken)
         //{
         //    _context.UserRefreshToken.Add(usrRefreshToken);
@@ -160,18 +160,18 @@ namespace LojaProdutosV2.Services.Usuario
         //    return _context.UserRefreshToken.FirstOrDefault(u => u.UsrName == username && u.RefreshToken == refreshtoken && u.IsActive == true);
         //}
 
-        //public Task<bool> IsValidUserAsync(UsrUserLogin users)
-        //{
-        //    var user = _context.UserRegisters.FirstOrDefault(u => u.Nome == users.Username && u.Senha == users.Password);
-        //    if (user != null)
-        //    {
-        //        return Task.FromResult(true);
-        //    }
-        //    else
-        //    {
-        //        return Task.FromResult(false);
-        //    }
-        //}
-    }
+        public async Task<bool> IsValidUserAsync(UsrUsuario users)
+        {
+            var user =  _context.Usuarios.FirstOrDefault(u => u.Nome == users.Nome && u.HashSenha == users.HashSenha);
+            if (user != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    
     }
 }
