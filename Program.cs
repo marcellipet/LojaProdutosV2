@@ -9,6 +9,7 @@ using LojaProdutosV2.Services.Produto;
 using LojaProdutosV2.Services.Usuario;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using LojaProdutos.CrossCutting.IoC;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

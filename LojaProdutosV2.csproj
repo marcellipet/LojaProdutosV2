@@ -32,4 +32,9 @@
     <Folder Include="Request\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LojaProdutos.CrossCutting.IoC\LojaProdutos.CrossCutting.IoC.csproj" />
+    <ProjectReference Include="..\LojaProdutos.Infra\LojaProdutos.Infra.csproj" />
+  </ItemGroup>
+
 </Project>
