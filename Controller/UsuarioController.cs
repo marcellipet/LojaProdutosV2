@@ -80,10 +80,23 @@ namespace LojaProdutosV2.Controller
             }
 
             [HttpDelete("{id}/Deletar")]
-            public ActionResult<ResponseModel<bool>> Deletar(long id)
+            public async Task<ActionResult<ResponseModel<bool>>> Deletar(long id)
             {
+            if (id <= 0)
+            {
+                return BadRequest("ID inválido.");
+            }
             var resposta = _usuarioInterface.Deletar(id);
-            return Ok(resposta);
+            if (resposta == null)
+            {
+                return NotFound("Usuário não encontrado.");
+            }
+            var Ok = await resposta;
+            if (!Ok.Status)
+            {
+                return BadRequest(Ok.Mensagem);
+            }
+            return Ok;
             }
 
     }

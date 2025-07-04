@@ -1,6 +1,7 @@
 ﻿using LojaProdutos.Data;
 using LojaProdutos.Models;
 using LojaProdutosV2.Dto;
+using LojaProdutosV2.Models;
 using LojaProdutosV2.Models.RequestResponse;
 using Microsoft.EntityFrameworkCore;
 
@@ -151,14 +152,14 @@ namespace LojaProdutosV2.Services.Usuario
         //    }
         //}
 
-        //public UsrRefreshToken GetSavedRefreshToken(string username, string refreshtoken)
-        //{
-        //    if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(refreshtoken))
-        //    {
-        //        throw new ArgumentException("Username and refresh token cannot be null or empty.");
-        //    }
-        //    return _context.UserRefreshToken.FirstOrDefault(u => u.UsrName == username && u.RefreshToken == refreshtoken && u.IsActive == true);
-        //}
+        public RefreshToken GetSavedRefreshToken(string username, string refreshtoken)
+        {
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(refreshtoken))
+            {
+                throw new ArgumentException("Username and refresh token cannot be null or empty.");
+            }
+            return _context.RefreshTokens.FirstOrDefault(u => u.Nome == username && u.UsrRefreshToken == refreshtoken && u.IsActive == true);
+        }
 
         public async Task<bool> IsValidUserAsync(UsrUsuario users)
         {
