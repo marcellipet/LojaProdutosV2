@@ -20,11 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Response\" />
-    <Folder Include="Request\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\LojaProdutos.Domain\LojaProdutos.Domain.csproj" />
     <ProjectReference Include="..\LojaProdutos.Infra\LojaProdutos.Infra.csproj" />
   </ItemGroup>
